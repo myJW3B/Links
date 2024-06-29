@@ -7,29 +7,43 @@ class Links {
 	public $active_class;
 	public $active_goes_on;
 
-	/**
-	 * __construct function
-	 * @param array $links
-	 * @param array $ary  = [
-	 *		'active_class' => 'active',
-	 *		'active_goes_on' => 'a'
-	 *		'links' => ['/path' => 'Path']
-	 *	]
-	 *
-	 */
-	public function __construct($links=[], $ary=[]){
-		$def = [
-			'active_class' => 'active',
-			'active_goes_on' => 'a'
-		];
-		if(!isset($links) || !is_array($links)){
-			throw new \error('links is a required array');
-		}
-		$this->links = $links;
-		$this->active_class = isset($ary['active_class']) ? $ary['active_class'] : $def['active_class'];
-		$this->active_goes_on = isset($ary['active_goes_on']) ? $ary['active_goes_on'] : $def['active_goes_on'];
-	}
 
+	public function __construct(){}
+
+	/**
+	 * link_up function
+	 * @param array  $ary = [
+	 * 		'/index.php' => [
+	 * 			'attr' => [
+	 * 				'classe' => 'nav-links active some class',
+	 * 				'data-bs-toggler' => 'tab',
+	 * 				'id' => 'index-link',
+	 * 			],
+	 * 			'n' => 'text shown',
+	 * 			'b4' => '<li class="nav-link">',
+	 * 			'after' => '</li>'
+	 * 		]
+	 * ]
+	 */
+	public static function link_up($ary){
+		$links = '';
+		foreach($ary as $url => $attr){
+			$attr = '';
+			if(isset($ary['b4'])){
+				$links .= $ary['b4'];
+			}
+			if(isset($ary['attr']) && is_array($ary['attr'])){
+				foreach($ary['attr'] as $at => $val){
+					$attr .= ' '.$at.'="'.$val.'"';
+				}
+			}
+			$links .= '<a href="'.$url.'"'.$attr.'>'.$ary['n'].'</a>';
+			if(isset($ary['b4'])){
+				$links .= $ary['after'];
+			}
+		}
+		return $links;
+	}
 	/**
 	 * display function
 	 *
@@ -87,5 +101,9 @@ class Links {
 			}
 		}
 		return $ret;
+	}
+
+	public function find_attr($ary){
+		// lets go
 	}
 }

@@ -3,6 +3,7 @@
     "description": "Building the links gui",
     "type": "library",
     "license": "mit",
+		"version": "0.9.0",
     "autoload": {
         "psr-4": {
             "JW3B\\gui\\": "src/"
