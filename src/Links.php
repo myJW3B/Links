@@ -3,7 +3,7 @@
 namespace JW3B\gui;
 
 class Links {
-	public $Links;
+	public $links;
 	public $active_class;
 	public $active_goes_on;
 
@@ -25,7 +25,7 @@ class Links {
 		if(!isset($links) || !is_array($links)){
 			throw new \error('links is a required array');
 		}
-		$this->Links = $links;
+		$this->links = $links;
 		$this->active_class = isset($ary['active_class']) ? $ary['active_class'] : $def['active_class'];
 		$this->active_goes_on = isset($ary['active_goes_on']) ? $ary['active_goes_on'] : $def['active_goes_on'];
 	}
@@ -50,8 +50,8 @@ class Links {
 	public function display($wrap_in='li', $ary=[]){
 		// it just displays the links inside the ul
 		$ret = '';
-		if(isset($this->Links)){
-			foreach($this->Links as $k => $v){
+		if(isset($this->links)){
+			foreach($this->links as $k => $v){
 				$class = '';
 				$attr = '';
 				$after_link = '';
