@@ -12,7 +12,7 @@ class Links {
 
 	/**
 	 * link_up function
-	 * @param array  $ary = [
+	 * @param array  $attr = [
 	 * 		'/index.php' => [
 	 * 			'attr' => [
 	 * 				'classe' => 'nav-links active some class',
@@ -28,18 +28,18 @@ class Links {
 	public static function link_up($ary){
 		$links = '';
 		foreach($ary as $url => $attr){
-			$attr = '';
-			if(isset($ary['b4'])){
-				$links .= $ary['b4'];
+			$in_attr = '';
+			if(isset($attr['b4'])){
+				$links .= $attr['b4'];
 			}
-			if(isset($ary['attr']) && is_array($ary['attr'])){
-				foreach($ary['attr'] as $at => $val){
-					$attr .= ' '.$at.'="'.$val.'"';
+			if(isset($attr['attr']) && is_array($attr['attr'])){
+				foreach($attr['attr'] as $at => $val){
+					$in_attr .= ' '.$at.'="'.$val.'"';
 				}
 			}
-			$links .= '<a href="'.$url.'"'.$attr.'>'.$ary['n'].'</a>';
-			if(isset($ary['b4'])){
-				$links .= $ary['after'];
+			$links .= '<'.$attr['tag'].$in_attr.'>'.$attr['n'].'</'.$attr['tag'].'>';
+			if(isset($attr['b4'])){
+				$links .= $attr['after'];
 			}
 		}
 		return $links;
