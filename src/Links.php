@@ -14,7 +14,7 @@ class Links {
 	/**
 	 * link_up function
 	 * @param array  $a = [
-	 * 		'/index.php' => [
+	 * 			'url' => '/index.php',
 	 * 			'attr' => [
 	 * 				'classe' => 'nav-links active some class',
 	 * 				'data-bs-toggler' => 'tab',
@@ -24,7 +24,6 @@ class Links {
 	 * 			'b4' => '<li class="nav-link">',
 	 * 			'after' => '</li>'
 	 * 		]
-	 * ]
 	 */
 	public static function link_up($l_ary) {
 		$links = '';
@@ -46,24 +45,27 @@ class Links {
 		return $links;
 	}
 	/**
-	 * display function
-	 *
-	 * @param string $wrap_in='li'
-	 * @param array $ary = [
-	 * 		'li' => [ // the value of $wrap_in if found
-	 * 			'class' => '',
-	 * 			'attr' => ' some="val" // strings
-	 * 		],
-	 * 		'a' => [
-	 * 			'class' => '',
-	 * 			'attr' => ' some="val"' // strings
-	 * 			'url' => '/',
-	 * 			'label' => 'Home'
-	 * 		]
-	 * ]
-	 *
-	 * @return string
-	 */
+		* display function
+		*			$links .= '<a href="'.$url.'"'.$attr.'>'.$ary['n'].'</a>';
+			 if(isset($ary['b4'])){
+				 $links .= $ary['after'];
+
+		* @param string $wrap_in='li'
+		* @param array $ary = [
+		* 		'li' => [ // the value of $wrap_in if found
+		* 			'class' => '',
+		* 			'attr' => ' some="val" // strings
+		* 		],
+		* 		'a' => [
+		* 			'class' => '',
+		* 			'attr' => ' some="val"' // strings
+		* 			'url' => '/',
+		* 			'label' => 'Home'
+		* 		]
+		* ]
+		*
+		* @return string
+		*/
 	public function display($wrap_in = 'li', $ary = []) {
 		// it just displays the links inside the ul
 		$ret = '';
