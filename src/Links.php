@@ -8,11 +8,12 @@ class Links {
 	public $active_goes_on;
 
 
-	public function __construct(){}
+	public function __construct() {
+	}
 
 	/**
 	 * link_up function
-	 * @param array  $ary = [
+	 * @param array  $a = [
 	 * 		'/index.php' => [
 	 * 			'attr' => [
 	 * 				'classe' => 'nav-links active some class',
@@ -25,20 +26,20 @@ class Links {
 	 * 		]
 	 * ]
 	 */
-	public static function link_up($ary){
+	public static function link_up($l_ary) {
 		$links = '';
-		foreach($ary as $url => $attr){
-			$attr = '';
-			if(isset($ary['b4'])){
+		foreach ($l_ary as $ary) {
+			$attr_in = '';
+			if (isset($ary['b4'])) {
 				$links .= $ary['b4'];
 			}
-			if(isset($ary['attr']) && is_array($ary['attr'])){
-				foreach($ary['attr'] as $at => $val){
-					$attr .= ' '.$at.'="'.$val.'"';
+			if (isset($ary['attr']) && is_array($ary['attr'])) {
+				foreach ($ary['attr'] as $at => $val) {
+					$attr_in .= ' ' . $at . '="' . $val . '"';
 				}
 			}
-			$links .= '<a href="'.$url.'"'.$attr.'>'.$ary['n'].'</a>';
-			if(isset($ary['b4'])){
+			$links .= '<a href="' . $ary['url'] . '"' . $attr_in . '>' . $ary['n'] . '</a>';
+			if (isset($ary['b4'])) {
 				$links .= $ary['after'];
 			}
 		}
@@ -56,16 +57,18 @@ class Links {
 	 * 		'a' => [
 	 * 			'class' => '',
 	 * 			'attr' => ' some="val"' // strings
+	 * 			'url' => '/',
+	 * 			'label' => 'Home'
 	 * 		]
 	 * ]
 	 *
 	 * @return string
 	 */
-	public function display($wrap_in='li', $ary=[]){
+	public function display($wrap_in = 'li', $ary = []) {
 		// it just displays the links inside the ul
 		$ret = '';
-		if(isset($this->links)){
-			foreach($this->links as $k => $v){
+		if (isset($this->links)) {
+			foreach ($this->links as $k => $v) {
 				$class = '';
 				$attr = '';
 				$after_link = '';
@@ -73,37 +76,37 @@ class Links {
 				$aattr = '';
 				$_SERVER['REQUEST_URI'] = 'home';
 				$add = $_SERVER['REQUEST_URI'] == str_replace('/', '', $k) ? $this->active_class : '';
-				if($wrap_in != ''){
-					if(isset($ary[$wrap_in])){
+				if ($wrap_in != '') {
+					if (isset($ary[$wrap_in])) {
 						$class .= $this->active_goes_on == $wrap_in ? $add : '';
-						if(isset($ary[$wrap_in]['class'])){
-							$class .= $class == '' ? $ary[$wrap_in]['class'] : ' '.$ary[$wrap_in]['class'];
+						if (isset($ary[$wrap_in]['class'])) {
+							$class .= $class == '' ? $ary[$wrap_in]['class'] : ' ' . $ary[$wrap_in]['class'];
 						}
-						if(isset($ary[$wrap_in]['attr'])){
-							$attr .= ' '.$ary[$wrap_in]['attr'];
+						if (isset($ary[$wrap_in]['attr'])) {
+							$attr .= ' ' . $ary[$wrap_in]['attr'];
 						}
 					}
-					$ret .= '<'.$wrap_in.' class="'.$class.'"'.$attr.'>';
-					$after_link = '</'.$wrap_in.'>';
+					$ret .= '<' . $wrap_in . ' class="' . $class . '"' . $attr . '>';
+					$after_link = '</' . $wrap_in . '>';
 				}
 				$acls .= $this->active_goes_on == 'a' ? $add : '';
-				if(isset($ary['a'])){
-					if(isset($ary['a']['class'])){
-						$acls .= $acls == '' ? $ary['a']['class'] : ' '.$ary['a']['class'];
+				if (isset($ary['a'])) {
+					if (isset($ary['a']['class'])) {
+						$acls .= $acls == '' ? $ary['a']['class'] : ' ' . $ary['a']['class'];
 					}
-					if(isset($ary['a']['attr'])){
-						$aattr .= ' '.$ary['a']['attr'];
+					if (isset($ary['a']['attr'])) {
+						$aattr .= ' ' . $ary['a']['attr'];
 					}
 				}
-				$acls = $acls == '' ? '' : ' class="'.$acls.'"';
-				$ret .= '<a href="'.$k.'"'.$acls.$aattr.'>'.$v.'</a>';
+				$acls = $acls == '' ? '' : ' class="' . $acls . '"';
+				$ret .= '<a href="' . $k . '"' . $acls . $aattr . '>' . $v . '</a>';
 				$ret .= $after_link;
 			}
 		}
 		return $ret;
 	}
 
-	public function find_attr($ary){
+	public function find_attr($ary) {
 		// lets go
 	}
 }
